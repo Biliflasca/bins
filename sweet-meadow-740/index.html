@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  --medida: 100px;
+}
+
+#divUno {
+  background: tan;
+  padding: 0;
+  width: var(--medida);
+	height: var(--medida);
+  text-align: center;
+}
+
+#divUno div {
+  position: relative;
+  margin: 0px;
+  top: 40%;
+}
+
+.foo {
+  border-radius: 50px;
+}
+</style>
+</head>
+<body>
+<div id = "divUno">
+  
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear()
+
+let divUno = document.getElementById("divUno");
+const newElement = document.createElement("div");
+newElement.innerHTML = "1";
+divUno.append(newElement);
+
+const newElement2 = document.createElement("div");
+divUno.append(newElement2);
+newElement2.style.width = "80px";
+newElement2.style.height = "80px";
+newElement2.style.marginTop = "50px";
+newElement2.style.backgroundColor = "tan";
+
+
+let p = 0;
+let q = 500;
+let menguado = true;
+let qCrecimiento = true;
+// set interval tiene dos parametros,
+// el primero es una funcion.
+// El segundo el tiempo en milisegundos.
+setInterval (() => {
+  divUno.style.borderRadius = p + "%";
+  let wid;
+  wid = p*2 + "px";
+  //newElement2.style.width = wid;
+  newElement2.style.borderRadius = "50%";
+  newElement2.style.top = 3*p + "px";
+  newElement2.style.left = q + "px";
+  divUno.childNodes[1].innerText = p;
+  console.log(newElement2.innerText = q);
+  if (menguado) {p = p + 1} else {p = p-1}
+  if (qCrecimiento) {q = q - 1;} else {q++;}
+  if (p===50) {menguado = false;}
+  if (p=== 1) {menguado = true;}
+  if (q === 0) {qCrecimiento = false} 
+  if (q === 500) {qCrecimiento = true}
+  
+  
+}, 12);
+
+
+</script>
+</body>
+</html>
