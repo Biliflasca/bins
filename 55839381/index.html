@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<style id="jsbin-css">
+* {
+  font-family: sans-serif;
+  --medida: 60px;
+}
+
+table {
+  background: darkred;
+  padding: 10px;
+}
+td {
+  width: var(--medida);
+  height: var(--medida);
+  border-radius: 5%;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+leyend {
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <h1> Tic, Tac, Toe.  </h1>
+  <p>
+    Turn: <span id="turn">X</span>
+  </p>
+  <table id="board">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+  <p id="leyend">  </p>
+  </div>
+  <div>
+    <button>Clear board</button>
+  </div>
+<!--boot js--><script id="jsbin-javascript" defer>console.clear();
+
+const board = document.getElementById("board");
+const leyend = document.getElementById("leyend");
+const turn = document.getElementById("turn");
+
+let progress = ""; 
+let counter = 0;
+let message = "";
+
+printX = () => {
+  //Print X or O in the clicked cell
+  celda = event.target;
+  
+  if (celda.innerText === ""){
+    //click in an empty cell
+      if (counter%2 === 0)
+  {
+    celda.innerText = "X";
+    turn.innerText = "O";
+    
+  } else {
+    celda.innerText = "O";
+        turn.innerText = "X";
+  }
+  counter ++;
+  
+  if (counter > 0) {determineWinner()};
+   
+  if(counter === 9) {
+    let stopper = setInterval ( () => {
+     leyend.innerHTML = "Game Finished with no winner " + progress;
+     if (progress === "✫✫✫✫✫") {
+     clearInterval(stopper);
+     clearBoard();
+     progress = "";
+     }
+     progress += "✫";
+    }, 400);
+  }
+} 
+  else 
+  {
+    //Click in the wrong place
+    leyend.innerText = "Forbidden move. Better click an empty cell :P. ";
+    timer2 = setTimeout( () => {leyend.innerText = "";}, 1000);
+  }
+  
+  //printX funcions ENDS here
+} 
+
+
+const Restart = document.querySelector("button");
+
+Restart.addEventListener("click", clearBoard() );
+
+function clearBoard() {
+  //
+  console.clear();
+  progress = ""; 
+  counter = 0;
+  leyend.innerText = "";
+  
+  for (let k = 0; k<3; k++) {
+    for (let i = 0; i < 3; i++){
+      board.rows[k].cells[i].innerText = "";
+    }
+  }
+}
+
+function determineWinner (){
+  let k = 0;
+  console.log(board.rows[0].cells[0].innerText 
+             + " " + board.rows[0].cells[1].innerText 
+             + " " + board.rows[0].cells[2].innerText);
+  console.log(
+    board.rows[0].cells[0].innerText.length === 1 &&
+    board.rows[0].cells[0].innerText === board.rows[0].cells[1].innerText &&
+    board.rows[0].cells[0].innerText === board.rows[0].cells[2].innerText);
+}
+
+board.addEventListener("click", printX) ;
+
+</script>
+</body>
+</html>
